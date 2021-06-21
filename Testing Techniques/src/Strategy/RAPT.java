@@ -79,37 +79,38 @@ public class RAPT {
         if (isKilledMutant) {// the test case killed a mutant
             pun[formerPartitionIndex] = 0;
             rew[formerPartitionIndex]++;
-
-            double sum = 0;
-            for (int i = 0; i < RAPT.length; i++) {
-                if (i != formerPartitionIndex) {
-                    RAPT[i] -= (1 + Math.log(rew[formerPartitionIndex]))
-                            * RAPT_epsilon / (RAPT.length - 1);
-                    if (RAPT[i] < 0) {
-                        RAPT[i] = 0;
-                    }
-                }
-                sum += RAPT[i];
-            }
-            RAPT[formerPartitionIndex] = 1 - sum;
-
         } else {// did not kill a mutant
-            rew[formerPartitionIndex] = 0;
             pun[formerPartitionIndex]++;
-            for (int i = 0; i < RAPT.length; i++) {
-                if (i == formerPartitionIndex) {
-                    if (p_i >= RAPT_delta) {
-                        RAPT[i] -= RAPT_delta;
+            if (rew[formerPartitionIndex] != 0) {
+                double sum = 0;
+                for (int i = 0; i < RAPT.length; i++) {
+                    if (i != formerPartitionIndex) {
+                        RAPT[i] -= (1 + Math.log(rew[formerPartitionIndex]))
+                                * RAPT_epsilon / (RAPT.length - 1);
+                        if (RAPT[i] < 0) {
+                            RAPT[i] = 0;
+                        }
                     }
-                    if (p_i < RAPT_delta || bou[i] == pun[i]) {
-                        RAPT[i] = 0;
-                    }
-                } else {
-                    if (p_i >= RAPT_delta) {
-                        RAPT[i] += RAPT_delta / (RAPT.length - 1);
-                    }
-                    if (p_i < RAPT_delta || bou[i] == pun[i]) {
-                        RAPT[i] += p_i / (RAPT.length - 1);
+                    sum += RAPT[i];
+                }
+                RAPT[formerPartitionIndex] = 1 - sum;
+                rew[formerPartitionIndex] = 0;
+            } else {
+                for (int i = 0; i < RAPT.length; i++) {
+                    if (i == formerPartitionIndex) {
+                        if (p_i >= RAPT_delta) {
+                            RAPT[i] -= RAPT_delta;
+                        }
+                        if (p_i < RAPT_delta || bou[i] == pun[i]) {
+                            RAPT[i] = 0;
+                        }
+                    } else {
+                        if (p_i >= RAPT_delta) {
+                            RAPT[i] += RAPT_delta / (RAPT.length - 1);
+                        }
+                        if (p_i < RAPT_delta || bou[i] == pun[i]) {
+                            RAPT[i] += p_i / (RAPT.length - 1);
+                        }
                     }
                 }
             }
