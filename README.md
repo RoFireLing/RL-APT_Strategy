@@ -1,6 +1,14 @@
-## Implementation of testing techniques related to RLAPT
+# Implementation of testing techniques related to RLAPT
 
-1. RPT
-2. DRT
-3. APT(MAPT; RAPT)
-4. **RLAPT(RLAPT_Q; RLAPT_S)**
+## Strategy
+* RPT
+* DRT
+* APT
+  * MAPT
+  * RAPT
+* **RLAPT**
+  * RLAPT_Q
+  * RLAPT_S
+
+## Cal_delta
+calculate delta for DRT and RAPT
