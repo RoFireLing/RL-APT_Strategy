@@ -1,5 +1,4 @@
-# Testing-Techniques
-## the implement of some testing techniques
+## Implementation of testing techniques related to RLAPT
 
 1. RPT
 2. DRT
